@@ -20,7 +20,7 @@ Search for a full skin name, eg `AWP | Wildfire (Field-Tested)`, or search with 
 
 ### What are API Keys
 
-Bitskins and Waxpeer API keys allow a user to access their API to get price, account, and skin information from their servers. This program uses these API keys for the sole reason of checking prices. I suggest using the Bitskins and Waxpeer API keys of spare accounts. If you do not want to provide API keys, the app will only retrieve Steam Community Market prices.
+Bitskins and Waxpeer API keys allow a user to access the respective APIs to get price, account, and skin information from their servers. This program uses these API keys for the sole reason of checking prices. I suggest using the Bitskins and Waxpeer API keys of spare accounts. If you do not want to provide API keys, the app will only retrieve Steam Community Market prices.
 
 ***Always keep your API Keys safe. They allow access to your Bitskins/Waxpeer accounts and can buy/sell skins on your account.*** Selling of skins require Steam mobile confirmations, which Bitskins and Waxpeer API keys cannot give access to, so your inventory on Steam is safe. This program does not require a Steam API key as Steam price data can be accessed by anyone.
 
