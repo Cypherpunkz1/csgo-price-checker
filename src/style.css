@@ -9,14 +9,13 @@ body {
 
 .center {
     position: absolute;
-    top: 50%;
+    top: 47%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .center h1 {
     text-align: center;
-    color: #ffe056;
 }
 
 .search-bar {
@@ -50,6 +49,7 @@ body {
     transition: 0.4s;
     line-height: 40px;
     width: 280px;
+    outline: none;
 }
 
 .footer {
@@ -58,7 +58,7 @@ body {
     bottom: 10%;
     transform: translate(-50%);
     font-size: 14px;
-    color: #8d8d8d;
+    color: #7a7a7a;
 }
 
 .footer a {

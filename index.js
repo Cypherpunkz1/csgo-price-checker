@@ -94,12 +94,14 @@
   */
  app.on('ready', () => {
      mainWindow = new BrowserWindow({
-         title: 'Electron App Template',
-         webPreferences: {
-             nodeIntegration: true,
-             contextIsolation: false,
-             enableRemoteModule: true,
-         }
+        title: 'CS:GO Price Checker',
+        width: 900,
+        height: 800,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true,
+        }
      });
  
      /* Open links in external browser */
