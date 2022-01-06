@@ -117,6 +117,14 @@ body {
     margin: 25px 0 0 0;
 }
 
+.rightbtn {
+    position: relative;
+    background: none;
+    box-shadow:inset 0px 0px 0px 2px #ffe056;
+    color: white;
+    margin: 0 0 0 -50px;
+}
+
 .api-btn:hover {
     background: #cbb34f;
 }

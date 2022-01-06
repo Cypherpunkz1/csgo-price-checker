@@ -167,7 +167,7 @@ function createUpdateWindow() {
             },
             icon: './assets/img/icon.png'
         });
-        apiWindow.setMenu(null);
+        // apiWindow.setMenu(null);
         apiWindow.loadFile('src/keys.html');
         apiWindow.webContents.on('did-finish-load', () => {
             apiWindow.webContents.send('fetch-api-keys');
