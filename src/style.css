@@ -14,7 +14,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.center h1 {
+.center h1, h2 {
     text-align: center;
 }
 
@@ -63,4 +63,44 @@ body {
 
 .footer a {
     color: #ffe0569c;
+}
+
+.api label {
+    display: block;
+    width: 100%;
+    padding: 10px 0px;
+    border-radius: 10px;
+}
+
+.api input {
+    display: block;
+    width: 100%;
+    padding: 10px 5px;
+    outline: none;
+    border: 1px solid #ffe056;
+    border-radius: 10px;
+}
+
+.api input:hover {
+    border: 2px solid #ffe056;
+}
+
+.api input:focus {
+    border: 2px solid #ffe056;
+}
+
+.api #save-btn {
+    border: 0;
+    background: #ffe056;
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+    margin: 15px 0;
+    width: auto;
+    text-transform: uppercase;
+    cursor: pointer;
+    left: 50%;
+}
+
+.api #save-btn:hover {
+    background: #cbb34f;
 }
