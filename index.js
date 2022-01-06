@@ -140,7 +140,7 @@ function createUpdateWindow() {
             enableRemoteModule: true,
         }
     });
-    updateWindow.setMenu(null);
+    updateWindow.setMenu(null); 
     updateWindow.loadFile('src/update.html');
     /* Wait for contents to load then set status */
     updateWindow.webContents.on('did-finish-load', () => {
@@ -163,7 +163,7 @@ function createUpdateWindow() {
             enableRemoteModule: true,
         }
     });
-    updateWindow.setMenu(null);
+    // updateWindow.setMenu(null); //TODO replace
     updateWindow.loadFile('src/keys.html');
     /* Wait for contents to load then set status */
     updateWindow.webContents.on('did-finish-load', () => {

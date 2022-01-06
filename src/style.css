@@ -37,6 +37,11 @@ body {
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    cursor: pointer;
+}
+
+.search-btn:hover{
+    background: #cbb34f;
 }
 
 .search-txt {
