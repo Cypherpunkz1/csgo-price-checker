@@ -172,6 +172,10 @@ function createUpdateWindow() {
         apiWindow.webContents.on('did-finish-load', () => {
             apiWindow.webContents.send('fetch-api-keys');
         });
+        apiWindow.webContents.setWindowOpenHandler(({ url }) => { // open links in external browser
+            shell.openExternal(url);
+            return { action: 'deny' };
+        });
     }
     else {
         apiWindow.focus();

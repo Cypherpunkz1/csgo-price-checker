@@ -129,7 +129,7 @@ body {
     background: #cbb34f;
 }
 
-.info {
+.info a {
     position: absolute;
     color: white;
     opacity: 0.7;
@@ -137,5 +137,4 @@ body {
     left: 50%;
     transform: translateX(-50%);
     font-size: 12px;
-    text-decoration: none;
 }
