@@ -6,7 +6,7 @@ const { app, BrowserWindow, ipcMain, shell, Menu } = electron;
 const { autoUpdater } = require("electron-updater");
 
 
-let mainWindow, data, updateWindow;
+let mainWindow, data, updateWindow, apiWindow;
 const version = `v${app.getVersion()}`;
 console.log(`Starting ${version}`);
 
@@ -108,7 +108,8 @@ app.on('ready', () => {
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true,
-        }
+        },
+        icon: './assets/img/icon.png'
     });
 
     /* Open links in external browser */
@@ -117,8 +118,8 @@ app.on('ready', () => {
         return { action: 'deny' };
     });
 
-    /* Load index.html */
-    mainWindow.loadFile('src/index.html');
+    /* Load main.html */
+    mainWindow.loadFile('src/main.html');
 
     /* Menus */
     const menu = Menu.buildFromTemplate(menuTemplate);
@@ -138,7 +139,8 @@ function createUpdateWindow() {
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true,
-        }
+        },
+        icon: './assets/img/icon.png'
     });
     updateWindow.setMenu(null); 
     updateWindow.loadFile('src/update.html');
@@ -152,22 +154,30 @@ function createUpdateWindow() {
  * Create the API window
  */
  function createAPIWindow() {
-    updateWindow = new BrowserWindow({
-        width: 500,
-        height: 400,
-        title: 'Set API Keys',
-        parent: mainWindow,
-        webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
-            enableRemoteModule: true,
-        }
-    });
-    // updateWindow.setMenu(null); //TODO replace
-    updateWindow.loadFile('src/keys.html');
-    /* Wait for contents to load then set status */
-    updateWindow.webContents.on('did-finish-load', () => {
-        updateWindow.webContents.send('version', version);
+    if (!apiWindow) { // prevents multiple windows
+        apiWindow = new BrowserWindow({
+            width: 500,
+            height: 400,
+            title: 'Set API Keys',
+            parent: mainWindow,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false,
+                enableRemoteModule: true,
+            },
+            icon: './assets/img/icon.png'
+        });
+        apiWindow.setMenu(null);
+        apiWindow.loadFile('src/keys.html');
+        apiWindow.webContents.on('did-finish-load', () => {
+            apiWindow.webContents.send('fetch-api-keys');
+        });
+    }
+    else {
+        apiWindow.focus();
+    }
+    apiWindow.on('closed', () => {
+        apiWindow = null;
     });
 }
 
@@ -203,21 +213,6 @@ autoUpdater.on('update-downloaded', (info) => {
 /**
  * IPC Listeners
  */
-ipcMain.on('app-restart', (event) => {
-    mainWindow.loadFile('src/index.html');
-});
-
-ipcMain.on('open-folder', (event, path) => {
-    console.log(path);
-    shell.showItemInFolder(path);
-});
-
-ipcMain.on('format-done', (event, formattedData) => {
-    data = formattedData;
-    mainWindow.webContents.send('formatted-data', data);
-    mainWindow.loadFile('src/save.html');
-});
-
-ipcMain.on('data-request', (event) => {
-    mainWindow.webContents.send('formatted-data', data);
+ipcMain.on('open-api-window', (event) => {
+    createAPIWindow();
 });
