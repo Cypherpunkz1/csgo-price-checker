@@ -1,0 +1,25 @@
+{
+  "name": "csgo-price-checker",
+  "version": "1.0.0",
+  "description": "CS:GO Skins Price Checker that displays the lowest price for Steam Market, Waxpeer, and Bitskins. Created by @Hitm0nLim and completed on May 30, 2020",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "publish": "electron-builder -p always"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hitm0nLim/csgo-price-checker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hitm0nLim/csgo-price-checker/issues"
+  },
+  "homepage": "https://github.com/Hitm0nLim/csgo-price-checker#readme",
+  "devDependencies": {
+    "electron": "13.5.1",
+    "electron-updater": "^4.6.1"
+  }
+}
