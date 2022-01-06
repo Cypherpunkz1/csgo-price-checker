@@ -157,7 +157,7 @@ function createUpdateWindow() {
     if (!apiWindow) { // prevents multiple windows
         apiWindow = new BrowserWindow({
             width: 500,
-            height: 400,
+            height: 425,
             title: 'Set API Keys',
             parent: mainWindow,
             webPreferences: {
@@ -167,7 +167,7 @@ function createUpdateWindow() {
             },
             icon: './assets/img/icon.png'
         });
-        // apiWindow.setMenu(null);
+        apiWindow.setMenu(null);
         apiWindow.loadFile('src/keys.html');
         apiWindow.webContents.on('did-finish-load', () => {
             apiWindow.webContents.send('fetch-api-keys');

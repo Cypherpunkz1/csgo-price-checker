@@ -128,3 +128,14 @@ body {
 .api-btn:hover {
     background: #cbb34f;
 }
+
+.info {
+    position: absolute;
+    color: white;
+    opacity: 0.7;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    text-decoration: none;
+}
