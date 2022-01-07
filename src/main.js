@@ -3,17 +3,20 @@ const { ipcRenderer } = require("electron")
 const fs = require('fs');
 
 let bsKey, wpKey; // API keys
+var steamPrice = document.getElementById('steam-price');
+var waxPrice = document.getElementById('waxpeer-price');
+var bitPrice = document.getElementById('bitskins-price');
+
 
 // Search Button
 document.getElementById('search-btn').addEventListener('click', () => {
     document.getElementById('center-container').classList.remove('center');
     document.getElementById('center-container').classList.add('result');
     document.getElementById('set-keys-btn').hidden = true;
-    var results = document.createElement('li');
-    var prices = document.getElementById('prices');
-    results.appendChild(document.createTextNode('Prices: '));
-    prices.appendChild(results);
-    prices.classList.add('prices-show'); // show prices with style applied
+    
+    steamPrice.classList.add('prices-show'); // show prices with style applied
+    waxPrice.classList.add('prices-show');
+    bitPrice.classList.add('prices-show');
     keys = getApiKeys();
     bsKey = keys.bitskins;
     wpKey = keys.waxpeer;
@@ -30,7 +33,11 @@ function getSteamPrice(skin) {
     })
     .then(response => {
         console.log('Low: ', response.data.lowest_price);
-        // show on screen
+        // results.appendChild(document.createTextNode('Steam Low: ' + response.data.lowest_price));
+        // prices.appendChild(results);
+        steamPrice.innerHTML = `Steam Low: ${response.data.lowest_price}`;
+        waxPrice.innerHTML = `Waxpeer`;
+        bitPrice.innerHTML = `Bitskins`;
     });
 }
 
