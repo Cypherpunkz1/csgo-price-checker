@@ -111,6 +111,7 @@ app.on('ready', () => {
         },
         icon: './assets/img/icon.png'
     });
+    mainWindow.webContents.openDevTools();
 
     /* Open links in external browser */
     mainWindow.webContents.setWindowOpenHandler(({ url }) => {

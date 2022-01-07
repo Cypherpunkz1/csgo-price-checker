@@ -51,10 +51,23 @@ body {
     padding: 0;
     color: #000000;
     font-size: 16px;
-    transition: 0.4s;
     line-height: 40px;
     width: 280px;
     outline: none;
+}
+
+.result {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.prices-show {
+    background: #ffe056;
+    color: #000000;
+    border-radius: 50px;
+    padding: 20px;
 }
 
 .footer {
