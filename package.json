@@ -23,6 +23,8 @@
     "electron-updater": "^4.6.1"
   },
   "dependencies": {
-    "axios": "^0.24.0"
+    "axios": "^0.24.0",
+    "notp": "^2.0.3",
+    "thirty-two": "^1.0.2"
   }
 }
