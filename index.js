@@ -158,7 +158,7 @@ function createUpdateWindow() {
     if (!apiWindow) { // prevents multiple windows
         apiWindow = new BrowserWindow({
             width: 500,
-            height: 425,
+            height: 600,
             title: 'Set API Keys',
             parent: mainWindow,
             webPreferences: {

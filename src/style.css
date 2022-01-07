@@ -49,8 +49,9 @@ body {
     background: none;
     float: left;
     padding: 0;
-    color: #000000;
+    color: #00162B;
     font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
     line-height: 40px;
     width: 280px;
     outline: none;
@@ -138,6 +139,16 @@ body {
     box-shadow:inset 0px 0px 0px 2px #ffe056;
     color: white;
     margin: 0 0 0 -50px;
+}
+
+.hcenter {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    margin: 20px 0 0 0;
 }
 
 .api-btn:hover {

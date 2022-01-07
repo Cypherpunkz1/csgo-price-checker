@@ -6,8 +6,10 @@ const fs = require('fs');
 document.getElementById('save-btn').addEventListener('click', () => {
     const wpKey = document.getElementById('waxpeer-key').value;
     const bsKey = document.getElementById('bitskins-key').value;
+    const bsSecret = document.getElementById('bs-secret').value;
     var keys = {}
     keys['bitskins'] = bsKey;
+    keys['bsSecret'] = bsSecret;
     keys['waxpeer'] = wpKey;
     JSON.stringify(keys);
     fs.writeFile('./assets/keys.json', JSON.stringify(keys), (err) => {
@@ -29,11 +31,13 @@ document.getElementById('cancel-btn').addEventListener('click', (event) => {
 document.getElementById('view-btn').addEventListener('click', (event) => {
     if (document.getElementById('bitskins-key').type === 'password') {
         document.getElementById('bitskins-key').type = 'text';
+        document.getElementById('bs-secret').type = 'text';
         document.getElementById('waxpeer-key').type = 'text';
         document.getElementById('view-btn').innerHTML = 'Hide';
     }
     else {
         document.getElementById('bitskins-key').type = 'password';
+        document.getElementById('bs-secret').type = 'password';
         document.getElementById('waxpeer-key').type = 'password';
         document.getElementById('view-btn').innerHTML = 'Show';
     }
@@ -41,7 +45,7 @@ document.getElementById('view-btn').addEventListener('click', (event) => {
 
 /* Show API Keys if already set */
 ipcRenderer.on('fetch-api-keys', (event) => {
-    let bsKey, wpKey;
+    let bsKey, wpKey, bsSecret;
     keyFile = './assets/keys.json'
 
     fs.readFile(keyFile, 'utf8', (err, data) => {
@@ -52,11 +56,13 @@ ipcRenderer.on('fetch-api-keys', (event) => {
         try {
             const keys = JSON.parse(data);
             bsKey = keys.bitskins;
+            bsSecret = keys.bsSecret;
             wpKey = keys.waxpeer;
         } catch (error) {
             console.log(error);
         }
-        document.getElementById('waxpeer-key').value = wpKey;
         document.getElementById('bitskins-key').value = bsKey;
+        document.getElementById('bs-secret').value = bsSecret;
+        document.getElementById('waxpeer-key').value = wpKey;
     });
 });
