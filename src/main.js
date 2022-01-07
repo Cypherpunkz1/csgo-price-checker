@@ -26,7 +26,10 @@ document.getElementById('search-btn').addEventListener('click', () => {
     bsKey = keys.bitskins;
     wpKey = keys.waxpeer;
     bsTOTP = keys.bsSecret;
-    getPrices('AK-47 | Redline (Field-Tested)');
+
+    // Get skin name
+    var skin = document.getElementById('search-input').value;
+    getPrices(skin);
 });
 
 function getPrices(skin) {
