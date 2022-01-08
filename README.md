@@ -30,3 +30,31 @@ You can get your API keys using the links below:
 
 - [Bitskins](https://bitskins.com/settings)
 - [Waxpeer](https://waxpeer.com/user/profile)
+
+## Developer Notes
+
+### API Return Structures
+
+#### Steam
+
+The Steam Community Market API is openly available at `https://steamcommunity.com/market/priceoverview/`. It requires the following parameters:
+
+- `appid`: 730 for CS:GO
+- `currency`: 1 for USD, 20 for CAD
+- `market_hash_name`: item name, in the form of `weapon | skin (wear)`
+
+An example call would be:
+
+```https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name=AK-47%20|%20Redline%20(Field-Tested)```
+
+A successful response:
+
+```json
+{"success":true,"lowest_price":"$14.96","volume":"452","median_price":"$14.97"}
+```
+
+Unsuccessful response:
+
+```json
+{"success":false}
+```
