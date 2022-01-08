@@ -84,7 +84,7 @@ function getPrices(skin) {
     .catch(err => {
         if (err.response) {
             if (err.response.status === 401) {
-                bitPrice.innerHTML = 'Bitskins Low: API key not set';
+                bitPrice.innerHTML = 'Bitskins Low: Token/API key not set';
             }
             else if (err.response.status === 500) {
                 bitPrice.innerHTML = 'Bitskins Low: Server error';

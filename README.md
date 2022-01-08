@@ -33,9 +33,11 @@ You can get your API keys using the links below:
 
 ## Developer Notes
 
-### API Return Structures
+### API Structures
 
-#### Steam
+<details>
+
+<summary>Steam</summary>
 
 The Steam Community Market API is openly available at `https://steamcommunity.com/market/priceoverview/`. It requires the following parameters:
 
@@ -58,3 +60,149 @@ Unsuccessful response:
 ```json
 {"success":false}
 ```
+
+</details>
+
+<details>
+<summary>BitSkins</summary>
+
+The [BitSkins API](https://bitskins.com/api) is only accessible via an API key and a generated TOTP code. We can use `https://bitskins.com/api/v1/get_inventory_on_sale/` endpoint to get all listings of a specific item and sort it so we can find the cheapest price easily. It requires the following parameters:
+
+- `api_key`: BitSkins API key
+- `code`: One time password token, generated with `notp.totp` and `thirty-two` module
+- `sort_by`: How results are sorted. We use `price`
+- `order`: Order of the sort. We use `asc` to show cheapest prices first
+- `show_trade_delayed_items`: Whether or not to show items that have Steam trade hold on BitSkin bot accounts. We use `1` to show these items
+- `market_hash_name`: item name, in the form of `weapon | skin (wear)`
+
+An example call would be:
+
+```https://bitskins.com/api/v1/get_inventory_on_sale/?api_key=API_KEY&code=CODE&app_id=730&sort_by=price&order=asc&show_trade_delayed_items=1&market_hash_name=AK-47 | Redline (Field-Tested)```
+
+A successful response:
+
+```json
+{
+  "status": "success",
+  "data": {
+    "items": [
+      {
+        "app_id": "730",
+        "context_id": "2",
+        "item_id": "24516652515",
+        "asset_id": "24516652515",
+        "class_id": "4700295612",
+        "instance_id": "480085569",
+        "market_hash_name": "AK-47 | Redline (Field-Tested)",
+        "item_type": "Rifle",
+        "item_class": "282",
+        "item_rarity": "Classified",
+        "item_weapon": "AK-47",
+        "item_quality": "Normal",
+        "image": "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPrxN7LEmyVQ7MEpiLuSrYmnjQO3-UdsZGHyd4_Bd1RvNQ7T_FDrw-_ng5Pu75iY1zI97bhLsvQz/256fx256f",
+        "inspectable": true,
+        "inspect_link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198399664716A%asset_id%D2940503861087363583",
+        "price": "10.40",
+        "suggested_price": "14.15",
+        "is_featured": false,
+        "float_value": "0.31457195",
+        "pattern_info": {
+          "paintindex": 282,
+          "paintseed": 327,
+          "rarity": 5,
+          "quality": 4,
+          "paintwear": 1050742675,
+          "patternname": "Redline"
+        },
+        "phase": null,
+        "type": "listed",
+        "is_mine": false,
+        "tags": {
+          "type": "Rifle",
+          "weapon": "AK-47",
+          "itemset": "The Phoenix Collection",
+          "quality": "Normal",
+          "rarity": "Classified",
+          "exterior": "Field-Tested"
+        },
+        "fraud_warnings": [],
+        "stickers": null,
+        "updated_at": 1641594997,
+        "withdrawable_at": 1642147199,
+        "bot_uid": "76561198399664716"
+      },
+      .
+      .
+      .
+```
+
+Unsuccessful responses:
+
+```json
+{
+  "status": "fail",
+  "data": {
+    "error_message": "Invalid API Key, invalid two-factor authentication code, or API access not enabled."
+  }
+}
+```
+
+```json
+/* Skin not found */
+{
+  "status": "success",
+  "data": {
+    "items": [],
+    "page": 1,
+    "cache_expires_at": 0,
+    "rendered_in_seconds": 0
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Waxpeer</summary>
+
+The [Waxpeer API](https://waxpeer.com/docs) is only accessible via an API key. We can use `https://api.waxpeer.com/v1/search-items-by-name/` endpoint to get all listings of a specific item sorted by price low to high. It requires the following parameters:
+
+- `api`: Waxpeer API key
+- `code`: One time password token, generated with `notp.totp` and `thirty-two` module
+- `sort_by`: How results are sorted. We use `price`
+- `order`: Order of the sort. We use `asc` to show cheapest prices first
+- `show_trade_delayed_items`: Whether or not to show items that have Steam trade hold on BitSkin bot accounts. We use `1` to show these items
+- `market_hash_name`: item name, in the form of `weapon | skin (wear)`
+
+An example call would be:
+
+```https://api.waxpeer.com/v1/search-items-by-name/?api=API_KEY&names=AK-47 | Redline (Field-Tested)```
+
+A successful response:
+
+```json
+{
+  "success": true,
+  "items": [
+    {
+      "name": "AK-47 | Redline (Field-Tested)",
+      "price": 14057,
+      "image": "https://steamcommunity-a.akamaihd.net/economy/image/class/730/4483852859/200fx125f",
+      "item_id": "23220317927"
+    },
+    .
+    .
+    .
+```
+
+Unsuccessful responses:
+```json
+{"success":false,"msg":"wrong api"}
+```
+
+```json
+/* Skin not found */
+{"success":true,"items":[]}
+```
+
+</details>
