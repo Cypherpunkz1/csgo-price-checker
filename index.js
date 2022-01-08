@@ -109,7 +109,7 @@ app.on('ready', () => {
             contextIsolation: false,
             enableRemoteModule: true,
         },
-        icon: './assets/img/icon.png'
+        icon: './assets/img/icon.ico'
     });
     // mainWindow.webContents.openDevTools(); // TODO remove
 
