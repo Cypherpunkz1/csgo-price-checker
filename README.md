@@ -12,9 +12,11 @@ CS:GO Skins Price Checker that displays the lowest price for Steam Market, Waxpe
 
 Download the installer from the [Releases](https://github.com/Hitm0nLim/csgo-price-checker/releases) tab to run the app. If you want to build the app yourself for development, clone the repository and use `npm install` to install all dependencies.
 
-## How to use
+## Usage
 
-Search for a full skin name, eg `AWP | Wildfire (Field-Tested)`, or search with `www[skinname]WW` where www is the 3 letter code of the skin and WW is the wear. Example: `awpwildfireft`
+Currently, only exact word searches are supported. Searches need to be performed in the form of `weapon | skin name (wear)` with proper capitalization. An example would be `AK-47 | Redline (Field-Tested)`. Support for partial word searches is coming soon!
+
+To view BitSkins and Waxpeer prices, some access information needs to be set in the API keys window for price data to be retrieved.
 
 ## API Keys
 

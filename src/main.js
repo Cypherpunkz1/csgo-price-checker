@@ -27,10 +27,13 @@ document.getElementById('search-btn').addEventListener('click', () => {
         
 
         steamPrice.classList.add('prices-show'); // show prices with style applied
+        steamPrice.style = "background: #8497b2;"
         steamPrice.innerHTML = 'Steam Low: Loading...';
         bitPrice.classList.add('prices-show');
+        bitPrice.style = "background: #ff7575;"
         bitPrice.innerHTML = 'BitSkins Low: Loading...';
         waxPrice.classList.add('prices-show');
+        waxPrice.style = "background: #25a9f3;"
         waxPrice.innerHTML = 'Waxpeer Low: Loading...';
         keys = getApiKeys();
         bsKey = keys.bitskins;
