@@ -1,0 +1,166 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #00162B;
+    font-family: 'Open Sans', sans-serif;
+    color: aliceblue;
+    overflow: hidden;
+}
+
+.center {
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center h1, h2 {
+    text-align: center;
+}
+
+.search-bar {
+    position: relative;
+    background-color: #ffe056;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+}
+
+.search-btn {
+    color: #00162B;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ffe056;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.search-btn:hover{
+    background: #cbb34f;
+}
+
+.search-txt {
+    border: none;
+    background: none;
+    float: left;
+    padding: 0;
+    color: #00162B;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 40px;
+    width: 280px;
+    outline: none;
+}
+
+.result {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.prices-show {
+    background: #ffe056;
+    color: #000000;
+    border-radius: 50px;
+    padding: 20px;
+    margin: 20px 0 0 0;
+    bottom: 0%;
+}
+
+.footer {
+    position: fixed;
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%);
+    font-size: 14px;
+    color: #7a7a7a;
+}
+
+.footer a {
+    color: #ffe0569c;
+}
+
+.api label {
+    display: block;
+    width: 100%;
+    padding: 10px 0px;
+    border-radius: 10px;
+}
+
+.input-field {
+    display: block;
+    width: 100%;
+    padding: 10px 5px;
+    outline: none;
+    border: 1px solid #ffe056;
+    border-radius: 10px;
+}
+
+.input-field:hover {
+    border: 2px solid #ffe056;
+}
+
+.input-field:focus {
+    border: 2px solid #ffe056;
+}
+
+.api-btn {
+    border: 0;
+    border-radius: 10px;
+    background: #ffe056;
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+    margin: 15px 0;
+    width: auto;
+    text-transform: uppercase;
+    cursor: pointer;
+    left: 50%;
+}
+
+.midbtn {
+    left: 50%;
+    transform: translate(-50%);
+    position: relative;
+    background: none;
+    color: white;
+    border: 2px solid #ffe056;
+    margin: 25px 0 0 0;
+}
+
+.rightbtn {
+    position: relative;
+    background: none;
+    box-shadow:inset 0px 0px 0px 2px #ffe056;
+    color: white;
+    margin: 0 0 0 -50px;
+}
+
+.hcenter {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    margin: 20px 0 0 0;
+}
+
+.api-btn:hover {
+    background: #cbb34f;
+}
+
+.info a {
+    position: absolute;
+    color: white;
+    opacity: 0.7;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+}

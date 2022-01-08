@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
+    <title>Set API Keys</title>
+</head>
+<body>
+    <div class="center">
+        <h2>Set your API Keys below</h2>
+        <form class="api">
+            <label for="bitskins-key">BitSkins API Key</label><input type="password" id="bitskins-key" class="input-field">
+            <label for="waxpeer-key">BitSkins TOTP Secret</label><input type="password" id="bs-secret" class="input-field">
+            <label for="waxpeer-key">Waxpeer API Key</label><input type="password" id="waxpeer-key" class="input-field">
+            <input type="submit" value="Save" id="save-btn" class="api-btn">
+            <button class="api-btn" id="cancel-btn">Cancel</button>
+            <button type="button" class="api-btn rightbtn" id="view-btn">Show</button>
+        </form>
+    </div>
+    <div class="info"><a href="https://github.com/Hitm0nLim/csgo-price-checker/tree/electron-upgrade#api-keys" target="_blank"> Why do I need API Keys?</a></div>
+    <script src="keys.js"></script>
+</body>
+</html>
