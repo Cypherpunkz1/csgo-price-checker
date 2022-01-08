@@ -15,9 +15,9 @@ var bitPrice = document.getElementById('bitskins-price');
 document.getElementById('search-btn').addEventListener('click', () => {
     var skin = document.getElementById('search-input').value;
     var skinName = document.getElementById('skin-name');
-    skinName.innerHTML = skin;
-
+    
     if (skin) {
+        skinName.innerHTML = skin; // Display skin name
         document.getElementById('search-input').value = ''; // Clear search input
         
         // Change styles
@@ -51,22 +51,20 @@ function getPrices(skin) {
             "market_hash_name": skin
         }
     })
+    .then(response => {
+        steamPrice.innerHTML = `Steam Low: ${response.data.lowest_price}`;
+    })
     .catch(err => {
-        if (err.response.status === 400) {
+        if (err.response.status === 500) {
             steamPrice.innerHTML = 'Steam Low: Skin not found';
         }
-        else if (err.response.status === 500) {
+        else if (err.response.status === 502) {
             steamPrice.innerHTML = 'Steam Low: Server error';
         }
-    })
-    .then(response => {
-        try {
-            steamPrice.innerHTML = `Steam Low: ${response.data.lowest_price}`;
-        }
-        catch {
+        else {
             steamPrice.innerHTML = 'Steam Low: Unknown error';
         }
-    });
+    })
     
     // Bistkins
     token = totp.gen(base32.decode(bsTOTP))
@@ -84,14 +82,16 @@ function getPrices(skin) {
         bitPrice.innerHTML = `Bitskins Low: $${response.data.data.items[0].price}`;
     })
     .catch(err => {
-        if (err.response.status === 401) {
-            bitPrice.innerHTML = 'Bitskins Low: API key not set';
-        }
-        else if (err.response.status === 500) {
-            bitPrice.innerHTML = 'Bitskins Low: Server error';
+        if (err.response) {
+            if (err.response.status === 401) {
+                bitPrice.innerHTML = 'Bitskins Low: API key not set';
+            }
+            else if (err.response.status === 500) {
+                bitPrice.innerHTML = 'Bitskins Low: Server error';
+            }
         }
         else {
-            bitPrice.innerHTML = 'Bitskins Low: Unknown error';
+            bitPrice.innerHTML = 'Bitskins Low: Skin not found';
         }
     });
 
@@ -102,22 +102,24 @@ function getPrices(skin) {
             "names": skin
         }
     })
-    .then(response => {
+    .then(response => { // Waxpeer does not return error codes, so we cannot check errors based on codes
         if (response.data.success === true) {
-            var formatter = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD'
-            });
-            var waxLow = formatter.format(response.data.items[0].price / 1000.00)
-            waxPrice.innerHTML = `Waxpeer Low: ${waxLow}`;
+            if (response.data.items.length > 0) { // Waxpeer returns {"success":true,"items":[]} if no items found
+                var formatter = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                });
+                var waxLow = formatter.format(response.data.items[0].price / 1000.00)
+                waxPrice.innerHTML = `Waxpeer Low: ${waxLow}`;
+            }
+            else {
+                waxPrice.innerHTML = 'Waxpeer Low: Skin not found';
+            }
         }
         else if (response.data.success === false && response.data.msg == "Missing API") {
             waxPrice.innerHTML = 'Waxpeer Low: API key not set';
         }
-    })
-    // .catch(err => { // Waxpeer does not return error codes, so we cannot check errors based on codes
-    //     waxPrice.innerHTML = 'Waxpeer Low: Unknown error';
-    // });
+    });
 }
 
 function getApiKeys() {
