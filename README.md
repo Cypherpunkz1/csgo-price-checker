@@ -14,7 +14,7 @@ Download the installer from the [Releases](https://github.com/Hitm0nLim/csgo-pri
 
 ## Usage
 
-Currently, only exact word searches are supported. Searches need to be performed in the form of `weapon | skin name (wear)` with proper capitalization. An example would be `AK-47 | Redline (Field-Tested)`. Support for partial word searches is coming soon!
+Search for the item you want to price check, and the app will attempt to convert it to Steam Market form: `weapon | skin name (wear)`. An example would be `AK-47 | Redline (Field-Tested)`. The app will be expecting searches either in Steam Market form or in `weapon skin name wear` form, where wear is one of `{FN, MW, FT, WW, BS}`. Try writing your search in Steam Market form if you cannot find the desired item. Not all skins come in all wear conditions.
 
 To view BitSkins and Waxpeer prices, some access information needs to be set in the API keys window for price data to be retrieved.
 
