@@ -241,5 +241,5 @@ ipcMain.on('open-api-window', (event) => {
 });
 
 ipcMain.on('get-data-path', (event) => {
-    mainWindow.webContents.send('data-path', dataPath + 'data/keys.json');
+    mainWindow.webContents.send('data-path', dataPath + '/data/keys.json');
 });
