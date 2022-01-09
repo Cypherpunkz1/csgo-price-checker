@@ -233,7 +233,6 @@ function processName(name) {
     let re = /.+\|.+\([^)]*\)/i;
     let formattedName;
     if (re.test(name)) {
-        console.log('regex accepted')
         return name;
     }
     else {
@@ -336,7 +335,6 @@ function getPrices(skin) {
     });
 
     // Waxpeer
-    console.log(`Call: https://api.waxpeer.com/v1/search-items-by-name/?api=${wpKey}&names=${skin}`);
     axios.get('https://api.waxpeer.com/v1/search-items-by-name/', {
         params: {
             "api": wpKey,
