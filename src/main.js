@@ -186,7 +186,7 @@ const wearDecode = {
     'fn': '(Factory New)'
 }
 
-let bsKey, wpKey, bsTOTP; // API keys
+let bsKey, wpKey, bsTOTP, skin; // API keys
 var steamPrice = document.getElementById('steam-price');
 var waxPrice = document.getElementById('waxpeer-price');
 var bitPrice = document.getElementById('bitskins-price');
@@ -195,7 +195,7 @@ var bitPrice = document.getElementById('bitskins-price');
 
 // Search Button
 document.getElementById('search-btn').addEventListener('click', () => {
-    var skin = document.getElementById('search-input').value;
+    skin = document.getElementById('search-input').value;
     skin = processName(skin);
     var skinName = document.getElementById('skin-name');
     
@@ -299,7 +299,6 @@ function getPrices(skin) {
     })
     
     // Bistkins
-    console.log(`https://bitskins.com/api/v1/get_inventory_on_sale/?api_key=${bsKey}&code=${bsTOTP}&sort_by=price&sort_order=asc&market_hash_name=${skin}`);
     token = totp.gen(base32.decode(bsTOTP))
     axios.get('https://bitskins.com/api/v1/get_inventory_on_sale/', {
         params: {
@@ -317,11 +316,11 @@ function getPrices(skin) {
     .catch(err => {
         if (err.response) {
             if (err.response.status === 401) {
-                if (err.response.data.data.error_message == 'Invalid API Key, invalid two-factor authentication code, or API access not enabled.') {
-                    bitPrice.innerHTML = 'BitSkins Low: Invalid API Key';
+                if (bsKey == '') {
+                    bitPrice.innerHTML = 'Bitskins Low: Token/API key not set';
                 }
                 else {
-                    bitPrice.innerHTML = 'Bitskins Low: Token/API key not set';
+                    bitPrice.innerHTML = 'BitSkins Low: Invalid API Key';
                 }
             }
             else if (err.response.status === 500) {
@@ -380,8 +379,6 @@ document.getElementById('set-keys-btn').addEventListener('click', (event) => {
 
 ipcRenderer.on('data-path', (event, keyFile) => {
     let keys
-
-    console.log(keyFile)
 
     const data = fs.readFileSync(keyFile, 'utf8');
     keys = JSON.parse(data);
