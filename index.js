@@ -103,12 +103,19 @@ const menuTemplate = [
  */
 app.on('ready', () => {
     /* Create keys directory */
-    if (!fs.existsSync(dataPath) + '/data/') {
-        fs.mkdir(dataPath + '/data/', (err) => {
+    if (!fs.existsSync(dataPath + '/data')) {
+        fs.mkdir(dataPath + '/data', (err) => {
             if (err) {
                 return console.error(err);
             }
             console.log('Created data directory');
+        });
+        // create keys.json
+        fs.writeFile(dataPath + '/data/keys.json', (err) => {
+            if (err) {
+                return console.error(err);
+            }
+            console.log('Created keys file');
         });
     } 
     mainWindow = new BrowserWindow({
@@ -231,4 +238,8 @@ autoUpdater.on('update-downloaded', (info) => {
  */
 ipcMain.on('open-api-window', (event) => {
     createAPIWindow();
+});
+
+ipcMain.on('get-data-path', (event) => {
+    mainWindow.webContents.send('data-path', dataPath + 'data/keys.json');
 });

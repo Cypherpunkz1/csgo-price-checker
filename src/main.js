@@ -47,8 +47,8 @@ const weaponDecode = {
     'm4a1-s': 'M4A1-S |',
     'm4a1': 'M4A1-S |',
     'a1': 'M4A1-S |',
-    'm4a4 ': 'M4A4 |',
-    'a4 ': 'M4A4 |',
+    'm4a4': 'M4A4 |',
+    'a4': 'M4A4 |',
     'scar': 'SCAR-20 |',
     'scar-20': 'SCAR-20 |',
     'scar 20': 'SCAR-20 |',
@@ -186,7 +186,7 @@ const wearDecode = {
     'fn': '(Factory New)'
 }
 
-let bsKey, wpKey; // API keys
+let bsKey, wpKey, bsTOTP; // API keys
 var steamPrice = document.getElementById('steam-price');
 var waxPrice = document.getElementById('waxpeer-price');
 var bitPrice = document.getElementById('bitskins-price');
@@ -218,13 +218,7 @@ document.getElementById('search-btn').addEventListener('click', () => {
         waxPrice.classList.add('prices-show');
         waxPrice.style = "background: #25a9f3;"
         waxPrice.innerHTML = 'Waxpeer Low: Loading...';
-        keys = getApiKeys();
-        bsKey = keys.bitskins;
-        wpKey = keys.waxpeer;
-        bsTOTP = keys.bsSecret;
-
-        // Get skin prices
-        getPrices(skin);
+        getApiKeys();
     }
 });
 
@@ -239,14 +233,13 @@ function processName(name) {
         // try {
             searchTerms = name.split(' ');
             searchTerms.forEach((word, i) => {
-                debugger
                 word = word.toLowerCase();
                 if (word != ' ') {
                     if (i == 0) { // weapon name
                         if (word in weaponDecode) {
                             formattedName = weaponDecode[word];
                         }
-                        else if (word + ' ' + searchTerms[i+1]) { // try the first 2 words
+                        else if (word + ' ' + searchTerms[i+1] in weaponDecode) { // try the first 2 words
                             formattedName = weaponDecode[word + ' ' + searchTerms[i+1]];
                             i += 1;
                         }
@@ -306,6 +299,7 @@ function getPrices(skin) {
     })
     
     // Bistkins
+    console.log(`https://bitskins.com/api/v1/get_inventory_on_sale/?api_key=${bsKey}&code=${bsTOTP}&sort_by=price&sort_order=asc&market_hash_name=${skin}`);
     token = totp.gen(base32.decode(bsTOTP))
     axios.get('https://bitskins.com/api/v1/get_inventory_on_sale/', {
         params: {
@@ -323,14 +317,22 @@ function getPrices(skin) {
     .catch(err => {
         if (err.response) {
             if (err.response.status === 401) {
-                bitPrice.innerHTML = 'Bitskins Low: Token/API key not set';
+                if (err.response.data.data.error_message == 'Invalid API Key, invalid two-factor authentication code, or API access not enabled.') {
+                    bitPrice.innerHTML = 'BitSkins Low: Invalid API Key';
+                }
+                else {
+                    bitPrice.innerHTML = 'Bitskins Low: Token/API key not set';
+                }
             }
             else if (err.response.status === 500) {
                 bitPrice.innerHTML = 'Bitskins Low: Server error';
             }
+            else {
+                bitPrice.innerHTML = 'Bitskins Low: Skin not found';
+            }
         }
         else {
-            bitPrice.innerHTML = 'Bitskins Low: Skin not found';
+            bitPrice.innerHTML = 'Bitskins Low: Unknown error';
         }
     });
 
@@ -358,16 +360,17 @@ function getPrices(skin) {
         else if (response.data.success === false && response.data.msg == "Missing API") {
             waxPrice.innerHTML = 'Waxpeer Low: API key not set';
         }
+        else if (response.data.success === false && response.data.msg == "wrong api") {
+            waxPrice.innerHTML = 'Waxpeer Low: Invalid API Key';
+        }
+        else {
+            waxPrice.innerHTML = 'Waxpeer Low: Unknown error';
+        }
     });
 }
 
 function getApiKeys() {
-    keyFile = './assets/keys.json'
-    let keys
-
-    const data = fs.readFileSync(keyFile, 'utf8');
-    keys = JSON.parse(data);
-    return keys;
+    ipcRenderer.send('get-data-path');
 }
 
 // API Button
@@ -375,3 +378,17 @@ document.getElementById('set-keys-btn').addEventListener('click', (event) => {
     ipcRenderer.send('open-api-window');
 });
 
+ipcRenderer.on('data-path', (event, keyFile) => {
+    let keys
+
+    console.log(keyFile)
+
+    const data = fs.readFileSync(keyFile, 'utf8');
+    keys = JSON.parse(data);
+    bsKey = keys.bitskins;
+    wpKey = keys.waxpeer;
+    bsTOTP = keys.bsSecret;
+
+    // Get skin prices
+    getPrices(skin);
+});
