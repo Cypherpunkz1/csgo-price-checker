@@ -1,6 +1,8 @@
-const { ipcRenderer, remote } = require('electron');
+const { ipcRenderer, remote, app } = require('electron');
 const { dialog } = require('electron').remote;
 const fs = require('fs');
+
+let keyFile;
 
 /* Save API keys*/
 document.getElementById('save-btn').addEventListener('click', () => {
@@ -12,7 +14,7 @@ document.getElementById('save-btn').addEventListener('click', () => {
     keys['bsSecret'] = bsSecret;
     keys['waxpeer'] = wpKey;
     JSON.stringify(keys);
-    fs.writeFile('./assets/keys.json', JSON.stringify(keys), (err) => {
+    fs.writeFile(keyFile, JSON.stringify(keys), (err) => {
         if (err) {
             dialog.showErrorBox('Error', 'Could not save keys: ' + err);
         }
@@ -44,9 +46,9 @@ document.getElementById('view-btn').addEventListener('click', (event) => {
 });
 
 /* Show API Keys if already set */
-ipcRenderer.on('fetch-api-keys', (event) => {
+ipcRenderer.on('fetch-api-keys', (event, filePath) => {
     let bsKey, wpKey, bsSecret;
-    keyFile = './assets/keys.json'
+    keyFile = filePath;
 
     fs.readFile(keyFile, 'utf8', (err, data) => {
         if (err) {

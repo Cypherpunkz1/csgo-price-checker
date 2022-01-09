@@ -4,11 +4,13 @@
 const electron = require('electron');
 const { app, BrowserWindow, ipcMain, shell, Menu } = electron;
 const { autoUpdater } = require("electron-updater");
+const fs = require('fs');
 
-
-let mainWindow, data, updateWindow, apiWindow;
+let mainWindow, updateWindow, apiWindow;
 const version = `v${app.getVersion()}`;
 console.log(`Starting ${version}`);
+
+const dataPath = app.getPath('userData');
 
 /* Menus */
 const menuTemplate = [
@@ -66,13 +68,13 @@ const menuTemplate = [
             {
                 label: 'About',
                 click: () => {
-                    shell.openExternal('https://github.com/wrrnlim/electron-app-template')
+                    shell.openExternal('https://github.com/Hitm0nLim/csgo-price-checker/')
                 }
             },
             {
                 label: 'Report an Issue',
                 click: () => {
-                    shell.openExternal('https://github.com/wrrnlim/electron-app-template/new/choose')
+                    shell.openExternal('https://github.com/Hitm0nLim/csgo-price-checker/issues/new/choose')
                 }
             },
             {
@@ -100,6 +102,15 @@ const menuTemplate = [
  * Create main window - Event based programming syntax 
  */
 app.on('ready', () => {
+    /* Create keys directory */
+    if (!fs.existsSync(dataPath) + '/data/') {
+        fs.mkdir(dataPath + '/data/', (err) => {
+            if (err) {
+                return console.error(err);
+            }
+            console.log('Created data directory');
+        });
+    } 
     mainWindow = new BrowserWindow({
         title: 'CS:GO Price Checker',
         width: 900,
@@ -171,7 +182,7 @@ function createUpdateWindow() {
         apiWindow.setMenu(null);
         apiWindow.loadFile('src/keys.html');
         apiWindow.webContents.on('did-finish-load', () => {
-            apiWindow.webContents.send('fetch-api-keys');
+            apiWindow.webContents.send('fetch-api-keys', dataPath + '/data/keys.json');
         });
         apiWindow.webContents.setWindowOpenHandler(({ url }) => { // open links in external browser
             shell.openExternal(url);
